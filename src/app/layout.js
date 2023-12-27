@@ -55,7 +55,7 @@ export const metadata = {
   viewport: {
     width: 'device-width',
     initialScale: 0.8,
-    maximumScale: 1,
+    maximumScale: 0.8,
   },
   icons: [
     {
