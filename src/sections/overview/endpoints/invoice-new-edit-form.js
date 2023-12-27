@@ -102,7 +102,7 @@ export default function InvoiceNewEditForm({ currentInvoice }) {
   
     for (const item of data.items) {
       try {
-        const response = await fetch('http://localhost:8080/api/endpoints/save-endpoint/user', {
+        const response = await fetch('https://threatvisor-api.vercel.app/api/endpoints/save-endpoint/user', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -136,7 +136,7 @@ export default function InvoiceNewEditForm({ currentInvoice }) {
   
     for (const item of data.items) {
       try {
-        const response = await fetch('http://localhost:8080/api/endpoints/save-endpoint/user', {
+        const response = await fetch('https://threatvisor-api.vercel.app/api/endpoints/save-endpoint/user', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
