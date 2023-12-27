@@ -63,7 +63,7 @@ function MailCompose({ onCloseCompose, emailData }) {
   
       const title = emailData.items[0].title;
   
-      const response = await axios.delete('http://localhost:8080/api/endpoints/delete-endpoint/user', {
+      const response = await axios.delete('https://threatvisor-api.vercel.app/api/endpoints/delete-endpoint/user', {
         data: {
           userId: user.email,
           title: title,
@@ -92,7 +92,7 @@ function MailCompose({ onCloseCompose, emailData }) {
         newDescription: description
       });
   
-      const response = await axios.post('http://localhost:8080/api/endpoints/regenerate-email', {
+      const response = await axios.post('https://threatvisor-api.vercel.app/api/endpoints/regenerate-email', {
         userId: user.email,
         newTitle: `${emailData.items[0].title}`,
         newDescription: description
@@ -116,7 +116,7 @@ function MailCompose({ onCloseCompose, emailData }) {
       // Ensure this is the correct title for the email item
       const title = emailData.items[0].title;
 
-      const response = await axios.post('http://localhost:8080/api/endpoints/mark-as-sent', {
+      const response = await axios.post('https://threatvisor-api.vercel.app/api/endpoints/mark-as-sent', {
         userId: user.email,
         endpointId,
         title, // include the title in the request
@@ -142,7 +142,7 @@ function MailCompose({ onCloseCompose, emailData }) {
       };
       console.log("Sending request to /fetch-clicks with data:", requestData);
   
-      const response = await axios.post('http://localhost:8080/api/endpoints/fetch-clicks', requestData);
+      const response = await axios.post('https://threatvisor-api.vercel.app/api/endpoints/fetch-clicks', requestData);
   
       console.log("Response from /fetch-clicks:", response.data);
   
@@ -159,7 +159,7 @@ function MailCompose({ onCloseCompose, emailData }) {
   useEffect(() => {
     const checkSendStatusAndFetchClicks = async () => {
       try {
-        const sendStatusResponse = await axios.post('http://localhost:8080/api/endpoints/get-send-status', {
+        const sendStatusResponse = await axios.post('https://threatvisor-api.vercel.app/api/endpoints/get-send-status', {
           userId: user.email,
           endpointId: emailData._id,
           title: emailData.items[0].title
@@ -172,7 +172,7 @@ function MailCompose({ onCloseCompose, emailData }) {
   
           // If email is marked as sent, fetch click data
           if (isEmailSent) {
-            const clickDataResponse = await axios.post('http://localhost:8080/api/endpoints/fetch-clicks', {
+            const clickDataResponse = await axios.post('https://threatvisor-api.vercel.app/api/endpoints/fetch-clicks', {
               userId: user.email,
               endpointId: emailData._id
             });
@@ -197,7 +197,7 @@ function MailCompose({ onCloseCompose, emailData }) {
   
   const handleSaveChanges = async () => {
     try {
-      const response = await axios.post('http://localhost:8080/api/endpoints/save-email', {
+      const response = await axios.post('https://threatvisor-api.vercel.app/api/endpoints/save-email', {
         userId: user.email,
         title: emailData.items[0].title,
         senderEmail,
@@ -216,7 +216,7 @@ function MailCompose({ onCloseCompose, emailData }) {
   useEffect(() => {
     const checkSendStatus = async () => {
       try {
-        const response = await axios.post('http://localhost:8080/api/endpoints/get-send-status', {
+        const response = await axios.post('https://threatvisor-api.vercel.app/api/endpoints/get-send-status', {
           userId: user.email,
           endpointId: emailData._id,
           title: emailData.items[0].title
@@ -491,7 +491,7 @@ export default function OverviewFileView() {
       try {
         const email = user.email;
         console.log("User email:", email); // Added console log
-        const response = await axios.post('http://localhost:8080/api/endpoints/fetch-phishing', {
+        const response = await axios.post('https://threatvisor-api.vercel.app/api/endpoints/fetch-phishing', {
           userId: email,
         });
   
