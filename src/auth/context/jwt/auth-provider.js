@@ -7,7 +7,7 @@ import axios, { endpoints } from 'src/utils/axios';
 //
 import { AuthContext } from './auth-context';
 import { isValidToken, setSession } from './utils';
-
+axios.defaults.withCredentials = true;
 // ----------------------------------------------------------------------
 
 // NOTE:
@@ -95,7 +95,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     initialize();
   }, [initialize]);
-  axios.defaults.withCredentials = true;
+  
   // LOGIN
   const login = useCallback(async (email, password) => {
     try {
