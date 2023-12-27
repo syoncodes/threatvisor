@@ -7,30 +7,10 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 // components
 import { MotionContainer, varFade } from 'src/components/animate';
-import { MotionViewport } from 'src/components/animate';
-import Grid from '@mui/material/Unstable_Grid2';
-import LinearProgress from '@mui/material/LinearProgress';
-// hooks
-import { useResponsive } from 'src/hooks/use-responsive';
-// utils
-import { fPercent } from 'src/utils/format-number';
-// components
-import Image from 'src/components/image';
-import Iconify from 'src/components/iconify';
-import { alpha, useTheme } from '@mui/material/styles';
+
 // ----------------------------------------------------------------------
 
 export default function AboutHero() {
-  const mdUp = useResponsive('up', 'md');
-  const theme = useTheme();
-  const isLight = theme.palette.mode === 'light';
-  const shadow = `-40px 40px 80px ${alpha(
-    isLight ? theme.palette.grey[500] : theme.palette.common.black,
-    0.24
-  )}`;
-  return (
-    null
-  );
   return (
     <Box
       sx={{
@@ -45,79 +25,39 @@ export default function AboutHero() {
       }}
     >
       <Container component={MotionContainer}>
-      
-      <Grid container columnSpacing={{ md: 3 }} alignItems="flex-start">
-        {mdUp && (
-          <Grid container xs={12} md={6} lg={7} alignItems="center" sx={{ pr: { md: 7 } }}>
-            <Grid xs={6}>
-              <m.div variants={varFade().inUp}>
-                <Image
-                  alt="our office 2"
-                  src="/assets/images/about/what_2.png"
-                  ratio="1/1"
-                  sx={{ borderRadius: 3, boxShadow: shadow }}
-                />
-              </m.div>
-            </Grid>
+        <Box
+          sx={{
+            bottom: { md: 80 },
+            position: { md: 'absolute' },
+            textAlign: {
+              xs: 'center',
+              md: 'unset',
+            },
+          }}
+        >
+          <TextAnimate text="Who" variants={varFade().inRight} sx={{ color: 'primary.main' }} />
 
-            <Grid xs={6}>
-              <m.div variants={varFade().inUp}>
-                <Image
-                  alt="our office 1"
-                  src="/assets/images/about/what_1.png"
-                  ratio="3/4"
-                  sx={{ borderRadius: 3, boxShadow: shadow }}
-                />
-              </m.div>
-            </Grid>
-          </Grid>
-        )}
+          <br />
 
-        <Grid xs={12} md={6} lg={5}>
-          <m.div variants={varFade().inRight}>
-            <Typography variant="h2" sx={{ mb: 3 }}>
-              What is Threatvisor?
-            </Typography>
-          </m.div>
-
-          <m.div variants={varFade().inRight}>
-            <Typography
-              sx={{
-                color: theme.palette.mode === 'light' ? 'text.secondary' : 'common.white',
-              }}
-            >
-              Threatvisor is your trusted partner in cybersecurity. Born from the passion of coders and cybersecurity enthusiasts, Threatvisor utilizes AI to bolster your organization’s digital defenses. Our solutions are designed to anticipate threats, educate your team, and secure your code. We’re not just building software; we’re building a safer digital future
-            </Typography>
-          </m.div>
-
-          <Stack spacing={3} sx={{ my: 5 }}>
-            {SKILLS.map((progress, index) => (
-              <Box component={m.div} key={progress.label} variants={varFade().inRight}>
-                <Stack direction="row" alignItems="center" sx={{ mb: 1 }}>
-                  <Typography variant="subtitle2" sx={{ flexGrow: 1, textAlign: 'left' }}>
-                    {progress.label}
-                  </Typography>
-
-                  <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                    {fPercent(progress.value)}
-                  </Typography>
-                </Stack>
-
-                <LinearProgress
-                  color={(index === 0 && 'primary') || (index === 1 && 'warning') || 'error'}
-                  variant="determinate"
-                  value={progress.value}
-                />
-              </Box>
-            ))}
+          <Stack spacing={2} display="inline-flex" direction="row" sx={{ color: 'common.white' }}>
+            <TextAnimate text="are" />
+            <TextAnimate text="we?" />
           </Stack>
 
           <m.div variants={varFade().inRight}>
-            
+            <Typography
+              variant="h4"
+              sx={{
+                mt: 3,
+                color: 'common.white',
+                fontWeight: 'fontWeightSemiBold',
+              }}
+            >
+              We’re passionate developers based in Austin, Texas,
+              <br/> dedicated to enhancing your organization’s cybersecurity.
+            </Typography>
           </m.div>
-        </Grid>
-      </Grid>
-    
+        </Box>
       </Container>
     </Box>
   );
