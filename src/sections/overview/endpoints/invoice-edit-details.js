@@ -153,7 +153,7 @@ export default function InvoiceNewEditDetails({ endpointDetails }) {
                   <RHFTextField
                     size="small"
                     name={`items[${index}].url`}
-                    label="URL"
+                    label="URL(With http/https header)"
                     InputLabelProps={{ shrink: true }}
                     defaultValue={endpointDetails?.items[index]?.url || ''}
                   />
