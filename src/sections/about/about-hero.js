@@ -21,6 +21,13 @@ import Iconify from 'src/components/iconify';
 
 export default function AboutHero() {
   const mdUp = useResponsive('up', 'md');
+  const shadow = `-40px 40px 80px ${alpha(
+    isLight ? theme.palette.grey[500] : theme.palette.common.black,
+    0.24
+  )}`;
+  return (
+    null
+  );
   return (
     <Box
       sx={{
