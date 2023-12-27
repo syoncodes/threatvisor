@@ -23,6 +23,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 export default function AboutHero() {
   const mdUp = useResponsive('up', 'md');
   const theme = useTheme();
+  const isLight = theme.palette.mode === 'light';
   const shadow = `-40px 40px 80px ${alpha(
     isLight ? theme.palette.grey[500] : theme.palette.common.black,
     0.24
