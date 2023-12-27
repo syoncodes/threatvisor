@@ -109,7 +109,7 @@ export default function ChatInterface() {
   };
   const fetchChatSessions = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/ai/api/get/chat-sessions', {
+      const response = await fetch('https://threatvisor-api.vercel.app/api/ai/api/get/chat-sessions', {
         headers: {
           'Content-Type': 'application/json',
           'User-Email': user.email,
@@ -130,7 +130,7 @@ export default function ChatInterface() {
 
   const createNewChatSession = async () => {
     try {
-      await fetch('http://localhost:8080/api/ai/api/create/chat-session', {
+      await fetch('https://threatvisor-api.vercel.app/api/ai/api/create/chat-session', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -148,7 +148,7 @@ export default function ChatInterface() {
 
   const deleteChatSession = async (sessionId) => {
     try {
-      await fetch(`http://localhost:8080/api/ai/api/delete/chat-session/${sessionId}`, {
+      await fetch(`https://threatvisor-api.vercel.app/api/ai/api/delete/chat-session/${sessionId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -163,7 +163,7 @@ export default function ChatInterface() {
 
   const addChatSession = async () => {
     try {
-      await fetch('http://localhost:8080/api/ai/api/add/chat-session', {
+      await fetch('https://threatvisor-api.vercel.app/api/ai/api/add/chat-session', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -178,7 +178,7 @@ export default function ChatInterface() {
 
   const clearChatSession = async (sessionId) => {
     try {
-      await fetch(`http://localhost:8080/api/ai/api/clear/chat-session/${sessionId}`, {
+      await fetch(`https://threatvisor-api.vercel.app/api/ai/api/clear/chat-session/${sessionId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -224,7 +224,7 @@ export default function ChatInterface() {
     }
   
     try {
-      const response = await axios.post('http://localhost:8080/api/ai/api/send/chat', formData, {
+      const response = await axios.post('https://threatvisor-api.vercel.app/api/ai/api/send/chat', formData, {
         headers: {
           'User-Email': user.email,
           'Content-Type': 'multipart/form-data',
