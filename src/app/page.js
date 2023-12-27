@@ -8,6 +8,5 @@ export const metadata = {
 };
 
 export default function HomePage() {
-  document.body.style.zoom = "80%";
   return <HomeView />;
 }
