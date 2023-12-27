@@ -10,7 +10,7 @@ export const metadata = {
 export default function OrgFilePage() {
   return (
     <>
-      <EndpointListView />;
+      <EndpointListView />
     </>
   );
 }
