@@ -295,12 +295,15 @@ setVulnerabilityLogData(formattedData);
         const vulnerabilitiesArray = Object.entries(vulnerabilities).reduce((acc, [severity, issues]) => {
           Object.entries(issues).forEach(([issueName, { locations, dates }]) => {
             // Use spread operator to handle multiple locations and dates
-            acc.push(...locations.map((location, index) => ({
-              id: `${issueName}-${location}-${dates[index]}`,
+            acc.push(...details.locations.map((location, index) => ({
+              id: `${issueName}-${location}-${details.dates[index]}`,
               title: issueName,
               location: location,
               severity: severity,
-              date: dates[index] || new Date().toISOString().split('T')[0], // Use the date from the server if available
+              date: details.dates[index] || new Date().toISOString().split('T')[0],
+              description: details.description,
+              solution: details.solution,
+              occurrences: details.occurrences
             })));
           });
           return acc;
