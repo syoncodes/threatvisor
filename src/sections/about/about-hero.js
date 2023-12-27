@@ -35,27 +35,17 @@ export default function AboutHero() {
             },
           }}
         >
-          <TextAnimate text="Who" variants={varFade().inRight} sx={{ color: 'primary.main' }} />
+          <TextAnimate text="What" variants={varFade().inRight} sx={{ color: 'primary.main' }} />
 
           <br />
 
           <Stack spacing={2} display="inline-flex" direction="row" sx={{ color: 'common.white' }}>
-            <TextAnimate text="are" />
-            <TextAnimate text="we?" />
+            <TextAnimate text="is" />
+            <TextAnimate text="Threatvisor?" />
           </Stack>
 
           <m.div variants={varFade().inRight}>
-            <Typography
-              variant="h4"
-              sx={{
-                mt: 3,
-                color: 'common.white',
-                fontWeight: 'fontWeightSemiBold',
-              }}
-            >
-              We’re passionate developers based in Austin, Texas,
-              <br/> dedicated to enhancing your organization’s cybersecurity.
-            </Typography>
+            
           </m.div>
         </Box>
       </Container>
