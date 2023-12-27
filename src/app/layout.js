@@ -54,7 +54,7 @@ export const metadata = {
   manifest: '/manifest.json',
   viewport: {
     width: 'device-width',
-    initialScale: 1,
+    initialScale: 0.8,
     maximumScale: 1,
   },
   icons: [
