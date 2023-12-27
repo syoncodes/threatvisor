@@ -25,7 +25,7 @@ export default function ContactForm() {
     const message = event.target.message.value;
 
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/submit-form', {
+      const response = await axios.post('https://threatvisor-api.vercel.app/api/auth/submit-form', {
         name,
         email,
         subject,
