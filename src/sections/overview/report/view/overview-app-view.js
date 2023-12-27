@@ -274,27 +274,15 @@ setVulnerabilityLogData(formattedData);
     const fetchVulnerabilityDetails = async () => {
       if (!user?.email) {
         console.log('User email is not available');
+        setLoading(false);
         return;
       }
-  
+      setLoading(true);
       try {
-        setLoading(true);
-        const response = await axios.post('https://threatvisor-api.vercel.app/api/endpoints/getVulnerabilityDetails2', {
-          userEmail: user.email,
-        });
-  
-        // Log the entire response from the server
-        console.log('Full server response for getVulnerabilityDetails:', response);
-  
-        // Log just the data from the server response
-        console.log('Server Response data:', response.data);
-  
+        const response = await axios.post(`${API_BASE_URL}/endpoints/getVulnerabilityDetails2`, { userEmail: user.email });
         const vulnerabilities = response.data.vulnerabilities || {};
-  
-        // Process each vulnerability level (High, Medium, Low, Informational)
         const vulnerabilitiesArray = Object.entries(vulnerabilities).reduce((acc, [severity, issues]) => {
-          Object.entries(issues).forEach(([issueName, { locations, dates }]) => {
-            // Use spread operator to handle multiple locations and dates
+          Object.entries(issues).forEach(([issueName, details]) => {
             acc.push(...details.locations.map((location, index) => ({
               id: `${issueName}-${location}-${details.dates[index]}`,
               title: issueName,
@@ -308,8 +296,6 @@ setVulnerabilityLogData(formattedData);
           });
           return acc;
         }, []);
-  
-        console.log('Vulnerability Details:', vulnerabilitiesArray);
         setVulnerabilityDetails(vulnerabilitiesArray);
       } catch (error) {
         console.error('Error fetching vulnerability details:', error);
@@ -317,9 +303,10 @@ setVulnerabilityLogData(formattedData);
         setLoading(false);
       }
     };
-  
+
     fetchVulnerabilityDetails();
   }, [user?.email]);
+  
   
   const [totalClicks, setTotalClicks] = useState(null);
   const [totalRecipients, setTotalRecipients] = useState(null);
@@ -732,19 +719,19 @@ useEffect(() => {
   
         {/* Vulnerability Details */}
         <Grid item xs={12}>
-          <AppNewInvoice22
-            title="Vulnerability Details"
-            tableData={vulnerabilityDetails}
-            expandedRow={expandedRow}
-            onRowToggle={toggleRow}
-            tableLabels={[
-              { id: 'title', label: 'Vulnerability' },
-              { id: 'location', label: 'Location' },
-              { id: 'severity', label: 'Severity' },
-              { id: 'date', label: 'Date' },
-              { id: '', label: '' },
-            ]}
-          />
+         <AppNewInvoice22
+        title="Vulnerability Details"
+        tableData={vulnerabilityDetails}
+        expandedRow={expandedRow}
+        onRowToggle={toggleRow}
+        tableLabels={[
+          { id: 'title', label: 'Vulnerability' },
+          { id: 'location', label: 'Location' },
+          { id: 'severity', label: 'Severity' },
+          { id: 'date', label: 'Date' },
+          { id: '', label: '' },
+        ]}
+      />
         </Grid>
   
         {/* Vulnerability IDs */}
