@@ -65,7 +65,7 @@ import { useEffect } from 'react';  // <-- Added this import
     const fetchOrgId = async (userId) => {
       try {
         console.log(`Sending request to fetch organization ID for user: ${userId}`);
-        const response = await axios.post('http://localhost:8080/api/endpoints/fetch-org-id', { userId });
+        const response = await axios.post('https://threatvisor-api.vercel.app/api/endpoints/fetch-org-id', { userId });
         console.log(`Request status: ${response.status}`);
         if (response.data && response.data.orgId) {
           setOrgId(response.data.orgId);
@@ -182,7 +182,7 @@ function BankingRecentTransitionsRow({ row }) {
     };
     console.log("Sending data:", updatedData);
     try {
-        await axios.post('http://localhost:8080/api/auth/editUser', updatedData);
+        await axios.post('https://threatvisor-api.vercel.app/api/auth/editUser', updatedData);
     } catch (error) {
         console.error("Error sending data:", error);
     }
@@ -197,7 +197,7 @@ const handleCopy = () => {
   const handleDelete = async () => {
     popover.onClose();
     // Send a request to the backend to remove the user from the organization
-    await axios.post('http://localhost:8080/api/auth/removeUser', { userEmail: row.user });
+    await axios.post('https://threatvisor-api.vercel.app/api/auth/removeUser', { userEmail: row.user });
   };
   
   const renderAvatar = (
