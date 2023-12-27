@@ -94,7 +94,7 @@ export default function OrgFileView() {
             headers: { 'x-auth-token': token }
           };
           
-          const response = await axios.get('http://localhost:8080/api/auth/fetchOrgAndUserData', config);
+          const response = await axios.get('https://threatvisor-api.vercel.app/api/auth/fetchOrgAndUserData', config);
           
           console.log(response); // This line logs the response to the console.
           
