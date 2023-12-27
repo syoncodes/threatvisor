@@ -56,7 +56,7 @@ export default function InvoiceTableRow({
     }
 
     try {
-      await axios.delete('http://localhost:8080/api/endpoints/delete-endpoint/user', {
+      await axios.delete('https://threatvisor-api.vercel.app/api/endpoints/delete-endpoint/user', {
         data: { identifier: endpointIdentifier, service: item.service },
       });
       onDeleteRow(); // Call the onDeleteRow callback after successful deletion
