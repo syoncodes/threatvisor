@@ -15,8 +15,6 @@ export default function AboutView() {
 
       <AboutWhat />
 
-      <AboutTeam />
-
       <AboutTestimonials />
     </>
   );
