@@ -15,6 +15,10 @@ export default function AboutView() {
 
       <AboutWhat />
 
+      <AboutVision />
+
+      <AboutTeam />
+
       <AboutTestimonials />
     </>
   );
