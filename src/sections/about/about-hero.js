@@ -20,6 +20,7 @@ import Iconify from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 export default function AboutHero() {
+  const mdUp = useResponsive('up', 'md');
   return (
     <Box
       sx={{
