@@ -45,13 +45,7 @@ export default function AboutHero() {
       }}
     >
       <Container component={MotionContainer}>
-      <Container
-      component={MotionViewport}
-      sx={{
-        py: { xs: 10, md: 15 },
-        textAlign: { xs: 'center', md: 'unset' },
-      }}
-    >
+      
       <Grid container columnSpacing={{ md: 3 }} alignItems="flex-start">
         {mdUp && (
           <Grid container xs={12} md={6} lg={7} alignItems="center" sx={{ pr: { md: 7 } }}>
@@ -123,7 +117,7 @@ export default function AboutHero() {
           </m.div>
         </Grid>
       </Grid>
-    </Container>
+    
       </Container>
     </Box>
   );
