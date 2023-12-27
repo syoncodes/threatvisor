@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 // components
 import { MotionContainer, varFade } from 'src/components/animate';
-
+import { MotionViewport } from 'src/components/animate';
 import Grid from '@mui/material/Unstable_Grid2';
 import LinearProgress from '@mui/material/LinearProgress';
 // hooks
