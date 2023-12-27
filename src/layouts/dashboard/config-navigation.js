@@ -182,13 +182,6 @@ export function useNavData() {
             path: paths.dashboard.user.account,
             icon: ICONS.user,
           },
-          // CHAT
-          {
-            title: t('chat'),
-            path: paths.dashboard.chat,
-            icon: ICONS.chat,
-          },
-          
         ],
       },
     ],
