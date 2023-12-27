@@ -35,7 +35,7 @@ export default function InvoiceNewEditForm({ currentInvoice }) {
   
         console.log('Request:', requestData);  // Log the request
   
-        const response = await axios.post('http://localhost:8080/api/endpoints/fetch-endpoint-details', requestData);
+        const response = await axios.post('https://threatvisor-api.vercel.app/api/endpoints/fetch-endpoint-details', requestData);
         setEndpointDetails(response.data); // Store the response in the state variable
       } catch (error) {
         console.error('Error fetching endpoint details:', error);
@@ -130,7 +130,7 @@ export default function InvoiceNewEditForm({ currentInvoice }) {
   
     for (const item of data.items) {
       try {
-        const response = await fetch('http://localhost:8080/api/endpoints/save-endpoint/user', {
+        const response = await fetch('https://threatvisor-api.vercel.app/api/endpoints/save-endpoint/user', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -164,7 +164,7 @@ export default function InvoiceNewEditForm({ currentInvoice }) {
   
     for (const item of data.items) {
       try {
-        const response = await fetch('http://localhost:8080/api/endpoints/edit-endpoint/user', {
+        const response = await fetch('https://threatvisor-api.vercel.app/api/endpoints/edit-endpoint/user', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
