@@ -237,7 +237,7 @@ export default function HomeHero() {
       <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', textAlign: 'center' }}>
   <strong style={{ fontSize: '34px', display: 'inline-block', marginBottom: '10px', whiteSpace: 'nowrap' }}>Hackers are smart, but AI is smarter.</strong>
   <div style={{ fontSize: '24px' }}>
-    Invest in your cybersecurity with Treatvisor, a cybersecurity platform that leverages AI to equip your team with the expertise, tools, and skills to deter cyberattacks.
+    Invest in your cybersecurity with Threatvisor, a cybersecurity platform that leverages AI to equip your team with the expertise, tools, and skills to deter cyberattacks.
   </div>
 </div>
 
