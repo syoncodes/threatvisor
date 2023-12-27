@@ -520,7 +520,7 @@ setVulnerabilityLogData(formattedData);
   
       try {
         setLoading(true);
-        const response = await axios.post(`${https://threatvisor-api.vercel.app}/endpoints/getExploitDetails`, {
+        const response = await axios.post(`${API_BASE_URL}/endpoints/getExploitDetails`, {
           userEmail: user.email,
         });
   
