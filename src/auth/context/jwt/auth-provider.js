@@ -100,7 +100,7 @@ export function AuthProvider({ children }) {
   const login = useCallback(async (email, password) => {
     try {
       // API call using axios to your own backend
-      const url = "https://vercel.com/syoncodes/threatvisor-api/3pdQh6g6X4im2z1DQzkZYAALrpBG/api/auth";
+      const url = "https://threatvisor-api.vercel.app/api/auth";
       const { data: res } = await axios.post(url, { email, password });
       
       // Use the token to set the session
@@ -144,7 +144,7 @@ export function AuthProvider({ children }) {
   const register = useCallback(async (email, password, firstName, lastName, organizationId = null) => {
     try {
       // API call using axios to your own backend for registration
-      const url = "https://vercel.com/syoncodes/threatvisor-api/3pdQh6g6X4im2z1DQzkZYAALrpBG/api/users";  // Adjust this URL to your server's registration endpoint
+      const url = "https://threatvisor-api.vercel.app/api/users";  // Adjust this URL to your server's registration endpoint
       const userData = {
         email,
         password,
@@ -205,7 +205,7 @@ export function AuthProvider({ children }) {
       });
 
       // API call using axios to your own backend for registration
-      const url = "https://vercel.com/syoncodes/threatvisor-api/3pdQh6g6X4im2z1DQzkZYAALrpBG/api/orgusers";  // Adjust this URL to your server's registration endpoint
+      const url = "https://threatvisor-api.vercel.app/api/orgusers";  // Adjust this URL to your server's registration endpoint
       const userData = {
         email,
         password,
