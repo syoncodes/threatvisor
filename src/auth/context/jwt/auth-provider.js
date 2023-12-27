@@ -95,7 +95,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     initialize();
   }, [initialize]);
-
+  axios.defaults.withCredentials = true;
   // LOGIN
   const login = useCallback(async (email, password) => {
     try {
