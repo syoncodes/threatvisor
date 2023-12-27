@@ -109,7 +109,7 @@ export default function EndpointListView() {
   
           console.log('Request:', requestOptions);  // Log the request
   
-          const response = await fetch('http://localhost:8080/api/endpoints/fetch-endpoints', requestOptions);
+          const response = await fetch('https://threatvisor-api.vercel.app/api/endpoints/fetch-endpoints', requestOptions);
   
           const responseData = await response.json();
   
@@ -221,7 +221,7 @@ export default function EndpointListView() {
         });
 
         console.log("Sending delete request with data:", params.toString());
-        await axios.delete(`http://localhost:8080/api/endpoints/delete-endpoint/user?${params}`);
+        await axios.delete(`https://threatvisor-api.vercel.app/api/endpoints/delete-endpoint/user?${params}`);
         const updatedData = tableData.filter((item) => item.id !== row.id);
         setTableData(updatedData);
         table.onUpdatePageDeleteRow(dataInPage.length);
@@ -238,7 +238,7 @@ export default function EndpointListView() {
   // Modify the handleDeleteRows function
   const handleDeleteRows = useCallback(async () => {
     try {
-      await axios.delete('http://localhost:8080/api/endpoints/delete-endpoints/user', { data: { ids: table.selected } });
+      await axios.delete('https://threatvisor-api.vercel.app/api/endpoints/delete-endpoints/user', { data: { ids: table.selected } });
       const updatedData = tableData.filter((row) => !table.selected.includes(row.id));
       setTableData(updatedData);
       table.onUpdatePageDeleteRows({
