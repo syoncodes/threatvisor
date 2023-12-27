@@ -9,7 +9,6 @@ import Typography from '@mui/material/Typography';
 import { MotionContainer, varFade } from 'src/components/animate';
 
 import Grid from '@mui/material/Unstable_Grid2';
-import Typography from '@mui/material/Typography';
 import LinearProgress from '@mui/material/LinearProgress';
 // hooks
 import { useResponsive } from 'src/hooks/use-responsive';
