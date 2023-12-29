@@ -54,7 +54,7 @@ const useGetPosts = () => {
     const fetchPosts = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('http://localhost:8080/api/featured');
+        const response = await axios.get('https://threatvisor-api.vercel.app/api/featured');
         setPosts(response.data);
       } catch (error) {
         console.error('Error fetching posts', error);
