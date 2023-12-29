@@ -48,7 +48,7 @@ export default function AccountChangePassword() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      const response = await axios.post('http://localhost:8080/api/users/change-password', { userId: user._id, ...data });
+      const response = await axios.post('https://threatvisor-api.vercel.app/api/users/change-password', { userId: user._id, ...data });
       if (response.data.success) {
         enqueueSnackbar('Password updated successfully!');
         reset();
@@ -63,7 +63,7 @@ export default function AccountChangePassword() {
 
   const handleDeleteUser = async () => {
     try {
-      const response = await axios.post('http://localhost:8080/api/users/delete-user', { userId: user._id });
+      const response = await axios.post('https://threatvisor-api.vercel.app/api/users/delete-user', { userId: user._id });
       if (response.data.success) {
         enqueueSnackbar('User deleted successfully!');
         // Additional logic after user deletion (e.g., redirect)
