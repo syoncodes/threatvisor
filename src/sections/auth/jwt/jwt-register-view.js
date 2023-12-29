@@ -120,7 +120,7 @@ export default function JwtRegisterView() {
   // Function to check if a user with the provided email already exists
   const checkUserExists = async (email) => {
     try {
-      const response = await axios.get('http://localhost:8080/api/auth/checkUserExists', {
+      const response = await axios.get('https://threatvisor-api.vercel.app/api/auth/checkUserExists', {
         params: { email }, // Pass email as a query parameter
       });
       return response.data.exists; // Assuming the API returns a JSON object with a boolean field 'exists'
@@ -135,7 +135,7 @@ export default function JwtRegisterView() {
 
   const sendVerificationEmail = async (recipientEmail, verificationCode) => {
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/verify', {
+      const response = await axios.post('https://threatvisor-api.vercel.app/api/auth/verify', {
         email: recipientEmail,
         verificationCode: verificationCode,
       });
