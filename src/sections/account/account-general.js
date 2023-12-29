@@ -64,7 +64,7 @@ export default function AccountGeneral() {
     const formData = getValues();
     try {
       console.log('Submitting data:', formData);
-      const response = await axios.post('http://localhost:8080/api/users/update-user', formData);
+      const response = await axios.post('https://threatvisor-api.vercel.app/api/users/update-user', formData);
       console.log('API response:', response);
       enqueueSnackbar('Update success!');
       console.info('Updated data:', formData);
@@ -87,7 +87,7 @@ export default function AccountGeneral() {
         console.log('_id:', userId);  // Log the _id
   
         if (userId) {
-          const response = await axios.post('http://localhost:8080/api/users/fetch-user', { userId });
+          const response = await axios.post('https://threatvisor-api.vercel.app/api/users/fetch-user', { userId });
           setUserData(response.data);
           Object.keys(defaultValues).forEach(key => {
             setValue(key, response.data[key] || defaultValues[key], { shouldValidate: true });
