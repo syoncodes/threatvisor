@@ -381,9 +381,14 @@ export default function HomeHero() {
               <Grid xs={12} md={7.5}>
                 {renderDescription}
               </Grid>
-
-              {mdUp && <Grid md={4.5}>{renderSlides}</Grid>}
+            
+              {mdUp && (
+                <Grid md={4.5}>
+                  {renderSlides}
+                </Grid>
+              )}
             </Grid>
+
           </Container>
 
           {renderEllipses}
