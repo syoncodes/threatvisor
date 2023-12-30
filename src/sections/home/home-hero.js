@@ -399,3 +399,4 @@ export default function HomeHero() {
     <Box sx={{ height: { md: '100vh' } }} />
   </>
 );
+}
