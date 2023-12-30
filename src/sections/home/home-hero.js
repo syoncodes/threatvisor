@@ -48,6 +48,12 @@ const StyledWrapper = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     marginTop: HEADER.H_DESKTOP_OFFSET,
   },
+  [theme.breakpoints.down('md')]: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 }));
 
 const StyledTextGradient = styled(m.h1)(({ theme }) => ({
@@ -67,6 +73,10 @@ const StyledTextGradient = styled(m.h1)(({ theme }) => ({
     fontSize: `${96 / 16}rem`,
   },
 }));
+
+// ----------------------------------------------------------------------
+
+
 
 const StyledEllipseTop = styled('div')(({ theme }) => ({
   top: -80,
@@ -237,7 +247,7 @@ export default function HomeHero() {
       <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', textAlign: 'center' }}>
   <strong style={{ fontSize: '34px', display: 'inline-block', marginBottom: '10px', whiteSpace: 'nowrap' }}>Hackers are smart, but AI is smarter.</strong>
   <div style={{ fontSize: '24px' }}>
-    Invest in your cybersecurity with Threatvisor, a cybersecurity platform that leverages AI to equip your team with the expertise, tools, and skills to deter cyberattacks.
+    Invest in your cybersecurity with Treatvisor, a cybersecurity platform that leverages AI to equip your team with the expertise, tools, and skills to deter cyberattacks.
   </div>
 </div>
 
@@ -368,7 +378,7 @@ export default function HomeHero() {
         <StyledWrapper>
           <Container component={MotionContainer} sx={{ height: 1 }}>
             <Grid container columnSpacing={{ md: 10 }} sx={{ height: 1 }}>
-              <Grid xs={12} md={7.5} >
+              <Grid xs={12} md={7.5}>
                 {renderDescription}
               </Grid>
 
