@@ -366,37 +366,38 @@ export default function HomeHero() {
   );
 
   return (
-  <>
-    <StyledRoot
-      ref={heroRef}
-      sx={{
-        ...(hide && {
-          opacity: 0,
-        }),
-      }}
-    >
-      <StyledWrapper>
-        <Container component={MotionContainer} sx={{ height: 1 }}>
-          <Grid container columnSpacing={{ md: 10 }} sx={{ height: 1 }}>
-            <Grid xs={12} md={6}>
-              {renderDescription}
+    <>
+      <StyledRoot
+        ref={heroRef}
+        sx={{
+          ...(hide && {
+            opacity: 0,
+          }),
+        }}
+      >
+        <StyledWrapper>
+          <Container component={MotionContainer} sx={{ height: 1 }}>
+            <Grid container columnSpacing={{ md: 10 }} sx={{ height: 1 }}>
+              <Grid xs={12} md={7.5}>
+                {renderDescription}
+              </Grid>
+            
+              {mdUp && (
+                <Grid md={4.5}>
+                  {renderSlides}
+                </Grid>
+              )}
             </Grid>
 
-            {mdUp && (
-              <Grid md={6}>
-                {renderSlides}
-              </Grid>
-            )}
-          </Grid>
-        </Container>
+          </Container>
 
-        {renderEllipses}
-      </StyledWrapper>
-    </StyledRoot>
+          {renderEllipses}
+        </StyledWrapper>
+      </StyledRoot>
 
-    {mdUp && renderPolygons}
+      {mdUp && renderPolygons}
 
-    <Box sx={{ height: { md: '100vh' } }} />
-  </>
-);
+      <Box sx={{ height: { md: '100vh' } }} />
+    </>
+  );
 }
