@@ -56,7 +56,7 @@ import AppTopInstalledCountries from '../app-top-installed-countries';
 import BookingAvailable from '../booking-available';
 import axios from 'axios';
 import Paper from '@mui/material/Paper';
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = 'https://threatvisor-api.vercel.app/api';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import { useRouter } from 'src/routes/hooks'; // Import useRouter
@@ -311,7 +311,7 @@ useEffect(() => {
     setLoading(true); // Set loading to true when the data fetching begins
 
     try {
-      const response = await axios.post('http://localhost:8080/api/endpoints/getVulnerabilityLog', {
+      const response = await axios.post('https://threatvisor-api.vercel.app/api/endpoints/getVulnerabilityLog', {
         userEmail: user.email,
       });
 
@@ -381,7 +381,7 @@ setVulnerabilityLogData(formattedData);
   
       try {
         setLoading(true);
-        const response = await axios.post('http://localhost:8080/api/endpoints/getVulnerabilityDetails', {
+        const response = await axios.post('https://threatvisor-api.vercel.app/api/endpoints/getVulnerabilityDetails', {
           userEmail: user.email,
         });
   
@@ -459,7 +459,7 @@ setVulnerabilityLogData(formattedData);
     
       try {
         setLoading(true);
-        const response = await axios.post('http://localhost:8080/api/endpoints/getIDs', {
+        const response = await axios.post('https://threatvisor-api.vercel.app/api/endpoints/getIDs', {
           userEmail: user.email,
         });
         console.log('Server Response:', response.data);
@@ -571,7 +571,7 @@ setVulnerabilityLogData(formattedData);
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.post('http://localhost:8080/api/endpoints/getVulnerabilities', {
+        const response = await axios.post('https://threatvisor-api.vercel.app/api/endpoints/getVulnerabilities', {
           email: user?.email,
         });
         console.log('Server Response:', response.data);
@@ -611,7 +611,7 @@ setVulnerabilityLogData(formattedData);
   useEffect(() => {
     const fetchAppWidgetSummary = async () => {
       try {
-        const endpoint = 'http://localhost:8080/api/endpoints/getPorts';
+        const endpoint = 'https://threatvisor-api.vercel.app/api/endpoints/getPorts';
         const requestBody = {
           email: user?.email,
         };
