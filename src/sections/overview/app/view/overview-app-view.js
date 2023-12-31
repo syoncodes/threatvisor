@@ -696,7 +696,6 @@ useEffect(() => {
   useEffect(() => {
     adjustHeights();
     // Add window resize listener
-    enqueueSnackbar('Click on the Lightbulb Icon to Toggle Help', { variant: 'warning' });
     window.addEventListener('resize', adjustHeights);
     // Remove resize listener on cleanup
     return () => window.removeEventListener('resize', adjustHeights);
