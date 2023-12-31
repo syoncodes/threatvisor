@@ -71,6 +71,7 @@ export default function JwtLoginView() {
       console.log(paths.dashboard.root);
       router.push(returnTo || PATH_AFTER_LOGIN);
       enqueueSnackbar('Login success!');
+      enqueueSnackbar('Click on the Lightbulb Icon to Toggle Help', { variant: 'warning' });
     } catch (error) {
       console.error(error);
       reset();
