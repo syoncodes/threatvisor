@@ -15,6 +15,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 // routes
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
+import { useSnackbar } from 'src/components/snackbar';
 import { useSearchParams, useRouter } from 'src/routes/hooks';
 // config
 import { PATH_AFTER_LOGIN } from 'src/config-global';
@@ -30,6 +31,8 @@ import FormProvider, { RHFTextField } from 'src/components/hook-form';
 
 export default function JwtLoginView() {
   const { login } = useAuthContext();
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const router = useRouter();
 
@@ -67,10 +70,12 @@ export default function JwtLoginView() {
       await login?.(data.email, data.password);
       console.log(paths.dashboard.root);
       router.push(returnTo || PATH_AFTER_LOGIN);
+      enqueueSnackbar('Login success!');
     } catch (error) {
       console.error(error);
       reset();
       setErrorMsg(typeof error === 'string' ? error : error.message);
+      enqueueSnackbar('Incorrect Username or Password', { variant: 'error' });
     }
   });
 
