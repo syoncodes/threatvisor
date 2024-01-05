@@ -4,6 +4,7 @@ import { useScroll } from 'framer-motion';
 // @mui
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
+import { useEffect, useRef, useState, useCallback } from 'react';
 // layouts
 import MainLayout from 'src/layouts/main';
 // components
@@ -48,7 +49,9 @@ const StyledPolygon = styled('div')(({ anchor = 'top', theme }) => ({
 
 export default function HomeView() {
   const { scrollYProgress } = useScroll();
-
+  useEffect(() => {
+    document.body.style.zoom = "80%";
+  }, []);
   return (
     <MainLayout>
       <ScrollProgress scrollYProgress={scrollYProgress} />
