@@ -52,7 +52,7 @@ export default function HomeView() {
   useEffect(() => {
     document.body.style.zoom = "80%";
   }, []);
-  const [heroHeight, setHeroHeight] = useState(600); 
+  const [heroHeight, setHeroHeight] = useState(900); 
   return (
     <MainLayout>
       <ScrollProgress scrollYProgress={scrollYProgress} />
