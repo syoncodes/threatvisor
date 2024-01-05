@@ -83,7 +83,6 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  document.body.style.zoom = "80%";
   return (
     <html lang="en" className={primaryFont.className}>
       <body>
