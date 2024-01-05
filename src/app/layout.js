@@ -54,8 +54,8 @@ export const metadata = {
   manifest: '/manifest.json',
   viewport: {
     width: 'device-width',
-    initialScale: 0.73,
-    maximumScale: 0.73,
+    initialScale: 0.8,
+    maximumScale: 1,
   },
   icons: [
     {
@@ -83,6 +83,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  document.body.style.zoom = "80%";
   return (
     <html lang="en" className={primaryFont.className}>
       <body>
