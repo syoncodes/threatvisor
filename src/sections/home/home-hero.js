@@ -161,10 +161,6 @@ export default function HomeHero() {
     getScroll();
   }, [getScroll]);
 
-  useEffect(() => {
-    document.body.style.zoom = "80%";
-  }, []);
-
   const transition = {
     repeatType: 'loop',
     ease: 'linear',
