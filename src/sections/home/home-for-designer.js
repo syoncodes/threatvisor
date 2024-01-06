@@ -1,33 +1,33 @@
 import { m } from 'framer-motion';
-// @mui
-import { useTheme, alpha } from '@mui/material/styles';
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
-// hooks
-import { useResponsive } from 'src/hooks/use-responsive';
-// theme
-import { textGradient, bgGradient } from 'src/theme/css';
-// routes
+import { alpha, useTheme } from '@mui/material/styles';
+
 import { paths } from 'src/routes/paths';
-// components
+
+import { useResponsive } from 'src/hooks/use-responsive';
+
+import { bgGradient, textGradient } from 'src/theme/css';
+
 import Iconify from 'src/components/iconify';
-import { MotionViewport, varFade } from 'src/components/animate';
+import { varFade, MotionViewport } from 'src/components/animate';
 
 // ----------------------------------------------------------------------
 
 export default function HomeForDesigner() {
   const theme = useTheme();
 
-  const upMd = useResponsive('up', 'md');
+  const mdUp = useResponsive('up', 'md');
 
   const renderDescription = (
     <Box sx={{ textAlign: { xs: 'center', md: 'unset' }, mt: { xs: 10, md: 20 } }}>
       <m.div variants={varFade().inUp}>
         <Typography component="div" variant="overline" sx={{ color: 'text.disabled' }}>
-          Threatvisor Metric Presentation
+        THREATVISOR METRIC PRESENTATION
         </Typography>
       </m.div>
 
@@ -47,13 +47,13 @@ export default function HomeForDesigner() {
       </m.div>
 
       <m.div variants={varFade().inUp}>
-        <Typography
+      <Typography
           sx={{
             mb: 5,
             color: 'text.secondary',
           }}
         >
-          Threatvisor’s intuitive metrics offer a clear and comprehensive view of your cybersecurity status. These metrics are designed to be easily understood, providing you with a quick snapshot of your organization’s security posture. They cover various aspects of cybersecurity, from vulnerability detection to incident response, giving you a holistic view of your security landscape. 
+          Threatvisor’s intuitive metrics offer a clear and comprehensive view of your cybersecurity status.
         </Typography>
       </m.div>
     </Box>
@@ -62,7 +62,7 @@ export default function HomeForDesigner() {
   const renderImg = (
     <Box
       component={m.img}
-      src="/assets/images/home/for_designer2.webp"
+      src="/assets/images/home/for_designer.webp"
       variants={varFade().in}
       sx={{
         height: 1,
@@ -89,7 +89,7 @@ export default function HomeForDesigner() {
           endColor: alpha(theme.palette.grey[900], 0),
           imgUrl: '/assets/images/home/for_designer.webp',
         }),
-        ...(upMd && {
+        ...(mdUp && {
           ...bgGradient({
             color: alpha(theme.palette.background.default, 0.8),
             imgUrl: '/assets/background/overlay_4.jpg',
@@ -99,11 +99,11 @@ export default function HomeForDesigner() {
     >
       <Container component={MotionViewport}>
         <Grid container>
-          <Grid xs={12} md={6} pr={10} >
+          <Grid xs={12} md={6}>
             {renderDescription}
           </Grid>
 
-          {upMd && <Grid md={6}>{renderImg}</Grid>}
+          {mdUp && <Grid md={6}>{renderImg}</Grid>}
         </Grid>
       </Container>
     </Box>
