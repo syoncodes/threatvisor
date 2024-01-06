@@ -64,14 +64,16 @@ export default function HomePricing() {
   const renderImg = (
     <m.div variants={varFade().inUp}>
       <Image
-        alt="darkmode"
-        src="/assets/illustrations/characters/character_7.png"
-        sx={{
-          borderRadius: 2,
-          my: { xs: 5, md: 10 },
-          boxShadow: (theme) => `-40px 40px 80px ${alpha(theme.palette.common.black, 0.24)}`,
-        }}
-      />
+  alt="darkmode"
+  src="/assets/illustrations/characters/character_7.png"
+  sx={{
+    borderRadius: 2,
+    my: { xs: 5, md: 10 },
+    mx: 'auto', // Add this line to center the image
+    boxShadow: (theme) => `-40px 40px 80px ${alpha(theme.palette.common.black, 0.24)}`,
+    display: 'block', // Make sure the image is a block element
+  }}
+/>
     </m.div>
   );
   
@@ -95,11 +97,7 @@ export default function HomePricing() {
       ) : (
         <>
           <Stack alignItems="center" sx={{ mb: 5 }}>
-            <Tabs value={currentTab} onChange={handleChangeTab}>
-              {_homePlans.map((tab) => (
-                <Tab key={tab.license} value={tab.license} label={tab.license} />
-              ))}
-            </Tabs>
+           
           </Stack>
 
           <Box
