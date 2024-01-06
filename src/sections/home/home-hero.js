@@ -161,6 +161,10 @@ export default function HomeHero() {
     getScroll();
   }, [getScroll]);
 
+  useEffect(() => {
+    document.body.style.zoom = "80%";
+  }, []);
+
   const transition = {
     repeatType: 'loop',
     ease: 'linear',
@@ -247,7 +251,7 @@ export default function HomeHero() {
       <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', textAlign: 'center' }}>
   <strong style={{ fontSize: '34px', display: 'inline-block', marginBottom: '10px', whiteSpace: 'nowrap' }}>Hackers are smart, but AI is smarter.</strong>
   <div style={{ fontSize: '24px' }}>
-    Invest in your cybersecurity with Threatvisor, the platform that leverages AI to equip your team with the expertise, tools, and skills to deter cyberattacks.
+    Invest in your cybersecurity with Treatvisor, a cybersecurity platform that leverages AI to equip your team with the expertise, tools, and skills to deter cyberattacks.
   </div>
 </div>
 
@@ -381,14 +385,9 @@ export default function HomeHero() {
               <Grid xs={12} md={7.5}>
                 {renderDescription}
               </Grid>
-            
-              {mdUp && (
-                <Grid md={4.5}>
-                  {renderSlides}
-                </Grid>
-              )}
-            </Grid>
 
+              {mdUp && <Grid md={4.5}>{renderSlides}</Grid>}
+            </Grid>
           </Container>
 
           {renderEllipses}
