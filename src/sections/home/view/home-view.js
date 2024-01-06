@@ -49,7 +49,11 @@ const StyledPolygon = styled('div')(({ anchor = 'top', theme }) => ({
 
 export default function HomeView() {
   const { scrollYProgress } = useScroll();
-  const [heroHeight, setHeroHeight] = useState(900); 
+  useEffect(() => {
+    document.body.style.zoom = "80%";
+    document.body.style.height = "100%";
+  }, []);
+  const [heroHeight, setHeroHeight] = useState(600); 
   return (
     <MainLayout>
       <ScrollProgress scrollYProgress={scrollYProgress} />
