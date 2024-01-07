@@ -62,7 +62,7 @@ export default function HomeForDesigner() {
   const renderImg = (
     <Box
       component={m.img}
-      src="/assets/images/home/for_designer.webp"
+      src="/assets/images/home/for_designer2.webp"
       variants={varFade().in}
       sx={{
         height: 1,
@@ -87,7 +87,7 @@ export default function HomeForDesigner() {
         ...bgGradient({
           startColor: `${theme.palette.grey[900]} 25%`,
           endColor: alpha(theme.palette.grey[900], 0),
-          imgUrl: '/assets/images/home/for_designer.webp',
+          imgUrl: '/assets/images/home/for_designer2.webp',
         }),
         ...(mdUp && {
           ...bgGradient({
