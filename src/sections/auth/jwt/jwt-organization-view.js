@@ -98,7 +98,7 @@ export default function JwtOrganizationView() {
 
   const sendVerificationEmail = async (recipientEmail, verificationCode) => {
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/verify', {
+      const response = await axios.post('https://threatvisor-api.vercel.app/api/auth/verify', {
         email: recipientEmail,
         verificationCode: verificationCode,
       });
