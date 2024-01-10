@@ -63,7 +63,22 @@ export default function JwtOrganizationView() {
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
+
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   
+    if (!passwordRegex.test(data.password)) {
+      setErrorMsg('Password must have at least 1 capital letter, 1 lowercase letter, 1 special character, 1 number, and be at least 8 characters in length');
+      return;
+    }
+  
+    try {
+      // Check if the user with the provided email already exists
+      const userExists = await checkUserExists(data.email);
+      if (userExists) {
+        setErrorMsg('A user with this email already exists');
+        return;
+      }
+    
     try {
       // Generate a random verification code
       const verificationCode = generateVerificationCode();
@@ -92,6 +107,17 @@ export default function JwtOrganizationView() {
     }
   });
 
+  const checkUserExists = async (email) => {
+    try {
+      const response = await axios.get('https://threatvisor-api.vercel.app/api/auth/checkUserExists', {
+        params: { email }, // Pass email as a query parameter
+      });
+      return response.data.exists; // Assuming the API returns a JSON object with a boolean field 'exists'
+    } catch (error) {
+      throw new Error('Failed to check user existence');
+    }
+  };
+  
   const generateVerificationCode = () => {
     return Math.floor(100000 + Math.random() * 900000).toString();
   };
