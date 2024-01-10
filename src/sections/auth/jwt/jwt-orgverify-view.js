@@ -85,7 +85,7 @@ export default function JwtOrgVerifyView() {
       console.log('Organization registered successfully');
 
       // Redirect the user to the login page or any other desired location
-      router.push(paths.auth.amplify.login);
+      router.push(paths.auth.jwt.login);
     } catch (error) {
       console.error('Error during organization registration confirmation:', error);
     }
