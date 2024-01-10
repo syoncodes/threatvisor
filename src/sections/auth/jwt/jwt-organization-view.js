@@ -63,49 +63,48 @@ export default function JwtOrganizationView() {
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
+  const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-  
-    if (!passwordRegex.test(data.password)) {
-      setErrorMsg('Password must have at least 1 capital letter, 1 lowercase letter, 1 special character, 1 number, and be at least 8 characters in length');
+  if (!passwordRegex.test(data.password)) {
+    setErrorMsg('Password must have at least 1 capital letter, 1 lowercase letter, 1 special character, 1 number, and be at least 8 characters in length');
+    return;
+  }
+
+  try {
+    // Check if the user with the provided email already exists
+    const userExists = await checkUserExists(data.email);
+    if (userExists) {
+      setErrorMsg('A user with this email already exists');
       return;
     }
-  
-    try {
-      // Check if the user with the provided email already exists
-      const userExists = await checkUserExists(data.email);
-      if (userExists) {
-        setErrorMsg('A user with this email already exists');
-        return;
-      }
-    
-    try {
-      // Generate a random verification code
-      const verificationCode = generateVerificationCode();
-  
-      // Save the registration data locally (for example, in localStorage)
-      const registrationData = {
-        email: data.email,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        password: data.password,
-        organizationName: data.organizationName,
-        verificationCode: verificationCode,
-        // Add other registration data here
-      };
-      localStorage.setItem('registrationData', JSON.stringify(registrationData));
-  
-      // Send a POST request to your Express server to send the verification email
-      await sendVerificationEmail(data.email, verificationCode);
-  
-      // Use history.push to navigate to the verification page
-      router.push('/auth/jwt/orgverify');
-    } catch (error) {
-      console.error(error);
-      reset();
-      setErrorMsg(typeof error === 'string' ? error : error.message);
-    }
-  });
+
+    // Generate a random verification code
+    const verificationCode = generateVerificationCode();
+
+    // Save the registration data locally (for example, in localStorage)
+    const registrationData = {
+      email: data.email,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      password: data.password,
+      organizationName: data.organizationName,
+      verificationCode: verificationCode,
+      // Add other registration data here
+    };
+    localStorage.setItem('registrationData', JSON.stringify(registrationData));
+
+    // Send a POST request to your Express server to send the verification email
+    await sendVerificationEmail(data.email, verificationCode);
+
+    // Use router.push to navigate to the verification page
+    router.push('/auth/jwt/orgverify');
+  } catch (error) {
+    console.error(error);
+    reset();
+    setErrorMsg(typeof error === 'string' ? error : error.message);
+  }
+});
+
 
   const checkUserExists = async (email) => {
     try {
