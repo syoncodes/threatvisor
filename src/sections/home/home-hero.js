@@ -238,7 +238,7 @@ export default function HomeHero() {
               variant="contained"
               startIcon={<Iconify icon="eva:flash-fill" width={24} />}
             >
-              Get Started for Free
+              Launch Demo
             </Button>
           </Stack>
 
@@ -248,10 +248,10 @@ export default function HomeHero() {
             size="large"
             variant="outlined"
             startIcon={<Iconify icon="eva:external-link-fill" width={24} />}
-            href={paths.about}
+            href={paths.auth.jwt.register}}
             sx={{ borderColor: 'text.primary' }}
           >
-            Contact Us
+            Get Started for Free
           </Button>
         </Stack>
       </m.div>
