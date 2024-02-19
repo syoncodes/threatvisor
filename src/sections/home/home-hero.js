@@ -248,7 +248,7 @@ export default function HomeHero() {
             size="large"
             variant="outlined"
             startIcon={<Iconify icon="eva:external-link-fill" width={24} />}
-            href={paths.auth.jwt.register}}
+            href={paths.auth.jwt.register}
             sx={{ borderColor: 'text.primary' }}
           >
             Get Started for Free
