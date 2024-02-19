@@ -16,7 +16,7 @@ export const navConfig = [
   {
     title: 'Demo',
     icon: <Iconify icon="solar:notebook-bold-duotone" />,
-    path: '#hugepack',
+    path: paths.components,
   },
   {
     title: 'Contact/About Us',
