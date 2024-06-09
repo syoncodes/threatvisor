@@ -767,10 +767,10 @@ useEffect(() => {
             <div>Loading...</div>
           ) : (
             <AppNewInvoice3
-              title="Exploits"
+              title="(POC) Exploits & Remediations"
               tableData={exploitDetails}
               tableLabels={[
-                { id: 'title', label: 'CVE ID' },
+                { id: 'title', label: 'Vulnerability ID' },
                 { id: 'content', label: 'Content', align: 'left' },
                 { id: 'location', label: 'Location URL' },
                 { id: 'date', label: 'Date', align: 'left' },
