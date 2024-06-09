@@ -868,7 +868,7 @@ useEffect(() => {
           <div>Loading...</div>
         ) : (
           <AppNewInvoice3
-            title="(POC) Exploits & Remediation"
+            title="(POC) Exploits & Remediations"
             id="demo__7"
             tableData={adjustedExploitDetails}
             tableLabels={[
