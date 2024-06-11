@@ -55,10 +55,17 @@ AppNewInvoiceRow.propTypes = {
 function ExpandedRowDetails({ row }) {
   return (
     <TableRow>
-      <TableCell colSpan={5}> {/* Adjust colspan to match the number of columns */}
+      <TableCell colSpan={5}>
         <Box sx={{ p: 2 }}>
           <div><strong>Title:</strong> {row.title}</div>
-          <div><strong>Content:</strong> {row.content}</div>
+          <div style={{
+            whiteSpace: 'pre-line', // Preserves newlines
+            width: '100%', // Dynamic width based on the parent container
+            overflow: 'hidden', // Hide overflow
+            textOverflow: 'ellipsis' // Add ellipsis if text is too long
+          }}>
+            <strong>Content:</strong> {row.content}
+          </div>
           <div><strong>Source:</strong> {row.source}</div>
           {row.link && <div><strong>Link:</strong> <a href={row.link} target="_blank" rel="noopener noreferrer">{row.link}</a></div>}
           <div><strong>Location:</strong> {row.location}</div>
@@ -68,6 +75,7 @@ function ExpandedRowDetails({ row }) {
     </TableRow>
   );
 }
+
 
 ExpandedRowDetails.propTypes = {
   row: PropTypes.object.isRequired,
