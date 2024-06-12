@@ -43,19 +43,8 @@ const defaultFilters = {
 const transformDriveLink = async (url) => {
   const fileId = url.split('/d/')[1].split('/view')[0];
   const driveUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
-
-  try {
-    const response = await axios.get(driveUrl, {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'image/jpeg',
-      },
-    });
-    return driveUrl;
-  } catch (error) {
-    console.error('Error fetching the Google Drive link', error);
-    return url;
-  }
+  const proxyUrl = `https://threatvisor-api.vercel.app/api/proxy?url=${encodeURIComponent(driveUrl)}`;
+  return proxyUrl;
 };
 
 // ----------------------------------------------------------------------
