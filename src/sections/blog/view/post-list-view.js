@@ -40,9 +40,17 @@ const defaultFilters = {
   publish: 'all',
 };
 
-const transformDriveLink = (url) => {
-  return `https://threatvisor-api.vercel.app/api/image?url=${encodeURIComponent(url)}`;
+const fetchImage = async (url) => {
+  try {
+    const response = await axios.get(`https://threatvisor-api.vercel.app/api/image?url=${encodeURIComponent(url)}`);
+    const { base64Image, contentType } = response.data;
+    return `data:${contentType};base64,${base64Image}`;
+  } catch (error) {
+    console.error('Error fetching image', error);
+    return null;
+  }
 };
+
 // ----------------------------------------------------------------------
 // Place this outside of the PostListView component
 const useGetPosts = () => {
@@ -54,7 +62,13 @@ const useGetPosts = () => {
       setLoading(true);
       try {
         const response = await axios.get('https://threatvisor-api.vercel.app/api/featured');
-        setPosts(response.data);
+        const posts = response.data;
+        for (const post of posts) {
+          post.coverUrl = await fetchImage(post.coverUrl);
+          post.img1URL = await fetchImage(post.img1URL);
+          post.img2URL = await fetchImage(post.img2URL);
+        }
+        setPosts(posts);
       } catch (error) {
         console.error('Error fetching posts', error);
       } finally {
@@ -67,7 +81,6 @@ const useGetPosts = () => {
 
   return { posts, loading };
 };
-
 
 export default function PostListView() {
   const settings = useSettingsContext();
@@ -122,47 +135,46 @@ export default function PostListView() {
     return (
       <Container maxWidth={settings.themeStretch ? false : 'lg'}>
         <PostDetailsToolbar
-        onBackClick={handleBackToList}
-        editLink={paths.dashboard.post.edit(`${selectedPost?.title}`)}
-        liveLink={paths.post.details(`${selectedPost?.title}`)}
-        publish={publish || ''}
-        onChangePublish={handleChangePublish}
-        publishOptions={POST_PUBLISH_OPTIONS}
-      />
-        <PostDetailsHero title={selectedPost.title} coverUrl={transformDriveLink(selectedPost.coverUrl)} />
+          onBackClick={handleBackToList}
+          editLink={paths.dashboard.post.edit(`${selectedPost?.title}`)}
+          liveLink={paths.post.details(`${selectedPost?.title}`)}
+          publish={publish || ''}
+          onChangePublish={handleChangePublish}
+          publishOptions={POST_PUBLISH_OPTIONS}
+        />
+        <PostDetailsHero title={selectedPost.title} coverUrl={selectedPost.coverUrl} />
         <Stack
-        spacing={3}
-        sx={{
-          maxWidth: 720,
-          mx: 'auto',
-          mt: { xs: 5, md: 10 },
-        }}
-      >
-        <Typography variant="subtitle1" sx={{ mb: 5 }}>
-          {selectedPost.description}
-        </Typography>
-        <Typography variant="h4" sx={{ mb: 5 }}>
-          {selectedPost.head1}
-        </Typography>
-        <Typography variant="subtitle1" sx={{ mb: 5 }}>
-          {selectedPost.article1}
-        </Typography>
-        <img src={transformDriveLink(selectedPost.img1URL)} alt="Image 1" style={{ maxWidth: '100%', borderRadius: '10px' }} />
-        <Typography variant="h4" sx={{ mb: 5 }}>
-          {selectedPost.head2}
-        </Typography>
-        <Typography variant="subtitle1" sx={{ mb: 5 }}>
-          {selectedPost.article2}
-        </Typography>
-        <img src={transformDriveLink(selectedPost.img2URL)} alt="Image 2" style={{ maxWidth: '100%', borderRadius: '10px'  }} />
-        <Typography variant="h4" sx={{ mb: 5 }}>
-          {selectedPost.head3}
-        </Typography>
-        <Typography variant="subtitle1" sx={{ mb: 5 }}>
-          {selectedPost.article3}
-        </Typography>
+          spacing={3}
+          sx={{
+            maxWidth: 720,
+            mx: 'auto',
+            mt: { xs: 5, md: 10 },
+          }}
+        >
+          <Typography variant="subtitle1" sx={{ mb: 5 }}>
+            {selectedPost.description}
+          </Typography>
+          <Typography variant="h4" sx={{ mb: 5 }}>
+            {selectedPost.head1}
+          </Typography>
+          <Typography variant="subtitle1" sx={{ mb: 5 }}>
+            {selectedPost.article1}
+          </Typography>
+          <img src={selectedPost.img1URL} alt="Image 1" style={{ maxWidth: '100%', borderRadius: '10px' }} />
+          <Typography variant="h4" sx={{ mb: 5 }}>
+            {selectedPost.head2}
+          </Typography>
+          <Typography variant="subtitle1" sx={{ mb: 5 }}>
+            {selectedPost.article2}
+          </Typography>
+          <img src={selectedPost.img2URL} alt="Image 2" style={{ maxWidth: '100%', borderRadius: '10px' }} />
+          <Typography variant="h4" sx={{ mb: 5 }}>
+            {selectedPost.head3}
+          </Typography>
+          <Typography variant="subtitle1" sx={{ mb: 5 }}>
+            {selectedPost.article3}
+          </Typography>
         </Stack>
-        
       </Container>
     );
   }
@@ -183,9 +195,7 @@ export default function PostListView() {
             name: 'List',
           },
         ]}
-        action={
-          null
-        }
+        action={null}
         sx={{
           mb: { xs: 3, md: 5 },
         }}
@@ -207,8 +217,6 @@ export default function PostListView() {
           loading={searchLoading}
           hrefItem={(title) => paths.dashboard.post.details(title)}
         />
-
-        
       </Stack>
 
       <Tabs
@@ -230,8 +238,6 @@ export default function PostListView() {
                 color={(tab === 'published' && 'info') || 'default'}
               >
                 {tab === 'all' && posts.length}
-
-                
               </Label>
             }
             sx={{ textTransform: 'capitalize' }}
@@ -252,8 +258,6 @@ export default function PostListView() {
 
 const applyFilter = ({ inputData, filters, sortBy }) => {
   const { publish } = filters;
-
-  
 
   return inputData;
 };
