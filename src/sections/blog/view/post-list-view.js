@@ -1,7 +1,7 @@
 'use client';
 
 import orderBy from 'lodash/orderBy';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 // @mui
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
@@ -17,7 +17,7 @@ import { useDebounce } from 'src/hooks/use-debounce';
 // _mock
 import { POST_SORT_OPTIONS } from 'src/_mock';
 // api
-import {  useSearchPosts } from 'src/api/blog';
+import { useSearchPosts } from 'src/api/blog';
 // components
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
@@ -31,9 +31,9 @@ import { POST_PUBLISH_OPTIONS } from 'src/_mock';
 
 import PostSearch from '../post-search';
 import PostListHorizontal from '../post-list-horizontal';
-import { useEffect } from 'react';
 import axios from 'axios';
 import Markdown from 'src/components/markdown';
+
 // ----------------------------------------------------------------------
 
 const defaultFilters = {
@@ -57,6 +57,7 @@ const transformDriveLink = async (url) => {
     return url;
   }
 };
+
 // ----------------------------------------------------------------------
 // Place this outside of the PostListView component
 const useGetPosts = () => {
@@ -90,9 +91,12 @@ export default function PostListView() {
   const debouncedQuery = useDebounce(searchQuery);
   const [selectedPost, setSelectedPost] = useState(null);
   const [publish, setPublish] = useState('');
+  const [driveLinks, setDriveLinks] = useState({});
+
   const handleSelectPost = (post) => {
     setSelectedPost(post);
   };
+
   const handleChangePublish = useCallback((newValue) => {
     setPublish(newValue);
   }, []);
@@ -101,9 +105,8 @@ export default function PostListView() {
   const handleBackToList = () => {
     setSelectedPost(null);
   };
-  // Use the hook here
+
   const { posts, loading: postsLoading } = useGetPosts();
-  
   const { searchResults, searchLoading } = useSearchPosts(debouncedQuery);
 
   const dataFiltered = applyFilter({
@@ -111,9 +114,11 @@ export default function PostListView() {
     filters,
     sortBy,
   });
+
   const handleSortBy = useCallback((newValue) => {
     setSortBy(newValue);
   }, []);
+
   const handleFilters = useCallback((name, value) => {
     setFilters((prevState) => ({
       ...prevState,
@@ -131,54 +136,72 @@ export default function PostListView() {
     },
     [handleFilters]
   );
+
+  useEffect(() => {
+    const fetchDriveLinks = async () => {
+      if (selectedPost) {
+        const coverUrl = await transformDriveLink(selectedPost.coverUrl);
+        const img1URL = await transformDriveLink(selectedPost.img1URL);
+        const img2URL = await transformDriveLink(selectedPost.img2URL);
+        setDriveLinks({
+          coverUrl,
+          img1URL,
+          img2URL,
+        });
+      }
+    };
+
+    fetchDriveLinks();
+  }, [selectedPost]);
+
   if (selectedPost) {
     return (
       <Container maxWidth={settings.themeStretch ? false : 'lg'}>
         <PostDetailsToolbar
-        onBackClick={handleBackToList}
-        editLink={paths.dashboard.post.edit(`${selectedPost?.title}`)}
-        liveLink={paths.post.details(`${selectedPost?.title}`)}
-        publish={publish || ''}
-        onChangePublish={handleChangePublish}
-        publishOptions={POST_PUBLISH_OPTIONS}
-      />
-        <PostDetailsHero title={selectedPost.title} coverUrl={await transformDriveLink(selectedPost.coverUrl)} />
+          onBackClick={handleBackToList}
+          editLink={paths.dashboard.post.edit(`${selectedPost?.title}`)}
+          liveLink={paths.post.details(`${selectedPost?.title}`)}
+          publish={publish || ''}
+          onChangePublish={handleChangePublish}
+          publishOptions={POST_PUBLISH_OPTIONS}
+        />
+        <PostDetailsHero title={selectedPost.title} coverUrl={driveLinks.coverUrl} />
         <Stack
-        spacing={3}
-        sx={{
-          maxWidth: 720,
-          mx: 'auto',
-          mt: { xs: 5, md: 10 },
-        }}
-      >
-        <Typography variant="subtitle1" sx={{ mb: 5 }}>
-          {selectedPost.description}
-        </Typography>
-        <Typography variant="h4" sx={{ mb: 5 }}>
-          {selectedPost.head1}
-        </Typography>
-        <Typography variant="subtitle1" sx={{ mb: 5 }}>
-          {selectedPost.article1}
-        </Typography>
-        <img src={await transformDriveLink(selectedPost.img1URL)} alt="Image 1" style={{ maxWidth: '100%', borderRadius: '10px' }} />
-        <Typography variant="h4" sx={{ mb: 5 }}>
-          {selectedPost.head2}
-        </Typography>
-        <Typography variant="subtitle1" sx={{ mb: 5 }}>
-          {selectedPost.article2}
-        </Typography>
-        <img src={await transformDriveLink(selectedPost.img2URL)} alt="Image 2" style={{ maxWidth: '100%', borderRadius: '10px'  }} />
-        <Typography variant="h4" sx={{ mb: 5 }}>
-          {selectedPost.head3}
-        </Typography>
-        <Typography variant="subtitle1" sx={{ mb: 5 }}>
-          {selectedPost.article3}
-        </Typography>
+          spacing={3}
+          sx={{
+            maxWidth: 720,
+            mx: 'auto',
+            mt: { xs: 5, md: 10 },
+          }}
+        >
+          <Typography variant="subtitle1" sx={{ mb: 5 }}>
+            {selectedPost.description}
+          </Typography>
+          <Typography variant="h4" sx={{ mb: 5 }}>
+            {selectedPost.head1}
+          </Typography>
+          <Typography variant="subtitle1" sx={{ mb: 5 }}>
+            {selectedPost.article1}
+          </Typography>
+          <img src={driveLinks.img1URL} alt="Image 1" style={{ maxWidth: '100%', borderRadius: '10px' }} />
+          <Typography variant="h4" sx={{ mb: 5 }}>
+            {selectedPost.head2}
+          </Typography>
+          <Typography variant="subtitle1" sx={{ mb: 5 }}>
+            {selectedPost.article2}
+          </Typography>
+          <img src={driveLinks.img2URL} alt="Image 2" style={{ maxWidth: '100%', borderRadius: '10px' }} />
+          <Typography variant="h4" sx={{ mb: 5 }}>
+            {selectedPost.head3}
+          </Typography>
+          <Typography variant="subtitle1" sx={{ mb: 5 }}>
+            {selectedPost.article3}
+          </Typography>
         </Stack>
-        
       </Container>
     );
   }
+
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
       <CustomBreadcrumbs
@@ -196,14 +219,11 @@ export default function PostListView() {
             name: 'List',
           },
         ]}
-        action={
-          null
-        }
+        action={null}
         sx={{
           mb: { xs: 3, md: 5 },
         }}
       />
-
       <Stack
         spacing={3}
         justifyContent="space-between"
@@ -220,10 +240,7 @@ export default function PostListView() {
           loading={searchLoading}
           hrefItem={(title) => paths.dashboard.post.details(title)}
         />
-
-        
       </Stack>
-
       <Tabs
         value={filters.publish}
         onChange={handleFilterPublish}
@@ -243,15 +260,12 @@ export default function PostListView() {
                 color={(tab === 'published' && 'info') || 'default'}
               >
                 {tab === 'all' && posts.length}
-
-                
               </Label>
             }
             sx={{ textTransform: 'capitalize' }}
           />
         ))}
       </Tabs>
-
       <PostListHorizontal
         posts={dataFiltered}
         loading={postsLoading}
@@ -265,6 +279,5 @@ export default function PostListView() {
 
 const applyFilter = ({ inputData, filters, sortBy }) => {
   const { publish } = filters;
-
   return inputData;
 };
