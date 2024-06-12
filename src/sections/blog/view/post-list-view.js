@@ -17,7 +17,7 @@ import { useDebounce } from 'src/hooks/use-debounce';
 // _mock
 import { POST_SORT_OPTIONS } from 'src/_mock';
 // api
-import {  useSearchPosts } from 'src/api/blog';
+import { useSearchPosts } from 'src/api/blog';
 // components
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
@@ -41,8 +41,7 @@ const defaultFilters = {
 };
 
 const transformDriveLink = (url) => {
-  const fileId = url.split('/d/')[1].split('/view')[0];
-  return `https://drive.google.com/uc?export=view&id=${fileId}`;
+  return `https://threatvisor-api.vercel.app/api/image?url=${encodeURIComponent(url)}`;
 };
 // ----------------------------------------------------------------------
 // Place this outside of the PostListView component
