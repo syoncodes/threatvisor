@@ -1,7 +1,8 @@
 'use client';
 
 import orderBy from 'lodash/orderBy';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
+import axios from 'axios';
 // @mui
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
@@ -28,29 +29,14 @@ import PostSort from '../post-sort';
 import PostDetailsHero from '../post-details-hero';
 import PostDetailsToolbar from '../post-details-toolbar';
 import { POST_PUBLISH_OPTIONS } from 'src/_mock';
-
 import PostSearch from '../post-search';
 import PostListHorizontal from '../post-list-horizontal';
-import { useEffect } from 'react';
-import axios from 'axios';
-import Markdown from 'src/components/markdown';
-// ----------------------------------------------------------------------
 
 const defaultFilters = {
   publish: 'all',
 };
 
-const fetchImage = async (encodedUrl) => {
-  try {
-    const response = await axios.post('https://threatvisor-api.vercel.app/api/image', { encodedUrl });
-    const { base64Image, contentType } = response.data;
-    return `data:${contentType};base64,${base64Image}`;
-  } catch (error) {
-    console.error('Error fetching image', error);
-    return null;
-  }
-};
-
+// Custom hook to fetch posts with base64-encoded images
 const useGetPosts = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -60,13 +46,7 @@ const useGetPosts = () => {
       setLoading(true);
       try {
         const response = await axios.get('https://threatvisor-api.vercel.app/api/featured');
-        const posts = response.data;
-        for (const post of posts) {
-          post.coverUrl = await fetchImage(post.coverUrl);
-          post.img1URL = await fetchImage(post.img1URL);
-          post.img2URL = await fetchImage(post.img2URL);
-        }
-        setPosts(posts);
+        setPosts(response.data);
       } catch (error) {
         console.error('Error fetching posts', error);
       } finally {
@@ -80,7 +60,6 @@ const useGetPosts = () => {
   return { posts, loading };
 };
 
-
 export default function PostListView() {
   const settings = useSettingsContext();
   const [sortBy, setSortBy] = useState('latest');
@@ -89,20 +68,21 @@ export default function PostListView() {
   const debouncedQuery = useDebounce(searchQuery);
   const [selectedPost, setSelectedPost] = useState(null);
   const [publish, setPublish] = useState('');
+
   const handleSelectPost = (post) => {
     setSelectedPost(post);
   };
+
   const handleChangePublish = useCallback((newValue) => {
     setPublish(newValue);
   }, []);
 
-  // Function to handle back to list view
   const handleBackToList = () => {
     setSelectedPost(null);
   };
-  // Use the hook here
+
+  // Use the custom hook to fetch posts
   const { posts, loading: postsLoading } = useGetPosts();
-  
   const { searchResults, searchLoading } = useSearchPosts(debouncedQuery);
 
   const dataFiltered = applyFilter({
@@ -110,9 +90,11 @@ export default function PostListView() {
     filters,
     sortBy,
   });
+
   const handleSortBy = useCallback((newValue) => {
     setSortBy(newValue);
   }, []);
+
   const handleFilters = useCallback((name, value) => {
     setFilters((prevState) => ({
       ...prevState,
@@ -130,6 +112,7 @@ export default function PostListView() {
     },
     [handleFilters]
   );
+
   if (selectedPost) {
     return (
       <Container maxWidth={settings.themeStretch ? false : 'lg'}>
@@ -177,6 +160,7 @@ export default function PostListView() {
       </Container>
     );
   }
+  
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
       <CustomBreadcrumbs
@@ -252,8 +236,6 @@ export default function PostListView() {
     </Container>
   );
 }
-
-// ----------------------------------------------------------------------
 
 const applyFilter = ({ inputData, filters, sortBy }) => {
   const { publish } = filters;
