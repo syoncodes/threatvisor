@@ -40,10 +40,6 @@ const defaultFilters = {
   publish: 'all',
 };
 
-const transformDriveLink = (url) => {
-  const fileId = url.split('/d/')[1].split('/view')[0];
-  return `https://drive.google.com/uc?export=view&id=${fileId}`;
-};
 // ----------------------------------------------------------------------
 // Place this outside of the PostListView component
 const useGetPosts = () => {
@@ -130,7 +126,7 @@ export default function PostListView() {
         onChangePublish={handleChangePublish}
         publishOptions={POST_PUBLISH_OPTIONS}
       />
-        <PostDetailsHero title={selectedPost.title} coverUrl={transformDriveLink(selectedPost.coverUrl)} />
+        <PostDetailsHero title={selectedPost.title} coverUrl={`data:image/jpeg;base64,${selectedPost.coverUrl}`} />
         <Stack
         spacing={3}
         sx={{
@@ -148,14 +144,14 @@ export default function PostListView() {
         <Typography variant="subtitle1" sx={{ mb: 5 }}>
           {selectedPost.article1}
         </Typography>
-        <img src={transformDriveLink(selectedPost.img1URL)} alt="Image 1" style={{ maxWidth: '100%', borderRadius: '10px' }} />
+        <img src={`data:image/jpeg;base64,${selectedPost.img1URL}`} alt="Image 1" style={{ maxWidth: '100%', borderRadius: '10px' }} />
         <Typography variant="h4" sx={{ mb: 5 }}>
           {selectedPost.head2}
         </Typography>
         <Typography variant="subtitle1" sx={{ mb: 5 }}>
           {selectedPost.article2}
         </Typography>
-        <img src={transformDriveLink(selectedPost.img2URL)} alt="Image 2" style={{ maxWidth: '100%', borderRadius: '10px'  }} />
+        <img src={`data:image/jpeg;base64,${selectedPost.img2URL}`} alt="Image 2" style={{ maxWidth: '100%', borderRadius: '10px'  }} />
         <Typography variant="h4" sx={{ mb: 5 }}>
           {selectedPost.head3}
         </Typography>
@@ -253,8 +249,6 @@ export default function PostListView() {
 
 const applyFilter = ({ inputData, filters, sortBy }) => {
   const { publish } = filters;
-
-  
 
   return inputData;
 };
