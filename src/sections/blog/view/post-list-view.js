@@ -53,6 +53,7 @@ const fetchImage = async (url) => {
     return null;
   }
 };
+
 // ----------------------------------------------------------------------
 // Place this outside of the PostListView component
 const useGetPosts = () => {
