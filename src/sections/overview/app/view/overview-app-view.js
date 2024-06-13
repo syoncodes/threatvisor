@@ -237,14 +237,16 @@ export default function OverviewAppView() {
     const fetchFeaturedData = async () => {
       try {
         const response = await axios.get(`${API_BASE_URL}/featured`);
-        setFeaturedData(response.data);
+        setFeaturedData(response.data || []);
       } catch (error) {
         console.error('Error fetching featured data:', error);
+        setFeaturedData([]);
       }
     };
   
     fetchFeaturedData();
   }, []);
+
 
   // Function to adjust heights
   const adjustHeights = () => {
