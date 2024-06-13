@@ -42,7 +42,7 @@ const defaultFilters = {
 
 const fetchImage = async (encodedUrl) => {
   try {
-    const response = await axios.get(`https://threatvisor-api.vercel.app/api/image?encodedUrl=${encodeURIComponent(encodedUrl)}`);
+    const response = await axios.post('https://threatvisor-api.vercel.app/api/image', { encodedUrl });
     const { base64Image, contentType } = response.data;
     return `data:${contentType};base64,${base64Image}`;
   } catch (error) {
@@ -79,6 +79,7 @@ const useGetPosts = () => {
 
   return { posts, loading };
 };
+
 
 export default function PostListView() {
   const settings = useSettingsContext();
