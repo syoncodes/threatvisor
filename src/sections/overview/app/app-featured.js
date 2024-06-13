@@ -52,17 +52,12 @@ AppFeatured.propTypes = {
 
 function CarouselItem({ item, active }) {
   const theme = useTheme();
-
   const { coverUrl, title, description } = item;
-  const transformDriveLink = (url) => {
-    const fileId = url.split('/d/')[1].split('/view')[0];
-    return `https://drive.google.com/uc?export=view&id=${fileId}`;
-  };
-  
-  const renderImg = (
+
+  const renderImg = coverUrl ? (
     <Image
       alt={title}
-      src={transformDriveLink(coverUrl)}
+      src={`data:image/jpeg;base64,${coverUrl}`}
       overlay={`linear-gradient(to bottom, ${alpha(theme.palette.grey[900], 0)} 0%, ${
         theme.palette.grey[900]
       } 75%)`}
@@ -74,8 +69,10 @@ function CarouselItem({ item, active }) {
         },
       }}
     />
+  ) : (
+    <div style={{ width: '100%', height: 280, backgroundColor: theme.palette.grey[300] }} />
   );
-      
+
   return (
     <MotionContainer action animate={active} sx={{ position: 'relative' }}>
       <Stack
