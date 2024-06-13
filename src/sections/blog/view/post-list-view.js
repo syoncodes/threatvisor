@@ -37,6 +37,7 @@ const defaultFilters = {
 };
 
 // Custom hook to fetch posts with base64-encoded images
+// Custom hook to fetch posts with base64-encoded images
 const useGetPosts = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -46,7 +47,14 @@ const useGetPosts = () => {
       setLoading(true);
       try {
         const response = await axios.get('https://threatvisor-api.vercel.app/api/featured');
-        setPosts(response.data);
+        console.log('API response:', response.data); // Log the response
+        const posts = response.data.map(post => ({
+          ...post,
+          coverUrl: post.coverUrl || '', // Default to empty string if undefined
+          img1URL: post.img1URL || '',   // Default to empty string if undefined
+          img2URL: post.img2URL || ''    // Default to empty string if undefined
+        }));
+        setPosts(posts);
       } catch (error) {
         console.error('Error fetching posts', error);
       } finally {
