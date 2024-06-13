@@ -42,15 +42,17 @@ const defaultFilters = {
 
 const fetchImage = async (url) => {
   try {
-    const response = await axios.get(`https://threatvisor-api.vercel.app/api/image?url=${encodeURIComponent(url)}`);
-    const { base64Image, contentType } = response.data;
+    const response = await axios.get(`https://threatvisor-api.vercel.app/api/image?url=${encodeURIComponent(url)}`, {
+      responseType: 'arraybuffer',
+    });
+    const base64Image = Buffer.from(response.data, 'binary').toString('base64');
+    const contentType = response.headers['content-type'];
     return `data:${contentType};base64,${base64Image}`;
   } catch (error) {
     console.error('Error fetching image', error);
     return null;
   }
 };
-
 // ----------------------------------------------------------------------
 // Place this outside of the PostListView component
 const useGetPosts = () => {
