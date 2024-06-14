@@ -23,6 +23,7 @@ import PostSearch from '../post-search';
 
 // ----------------------------------------------------------------------
 
+
 export default function PostListHomeView() {
   const settings = useSettingsContext();
 
