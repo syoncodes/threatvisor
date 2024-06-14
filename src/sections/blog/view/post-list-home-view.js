@@ -67,13 +67,7 @@ export default function PostListHomeView() {
         direction={{ xs: 'column', sm: 'row' }}
         sx={{ mb: { xs: 3, md: 5 } }}
       >
-        <PostSearch
-          query={debouncedQuery}
-          results={searchResults}
-          onSearch={handleSearch}
-          loading={searchLoading}
-          hrefItem={(title) => paths.post.details(title)}
-        />
+        
 
         <PostSort sort={sortBy} onSort={handleSortBy} sortOptions={POST_SORT_OPTIONS} />
       </Stack>
