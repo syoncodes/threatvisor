@@ -86,7 +86,7 @@ export default function PostSearch({ query, results, onSearch, hrefItem, loading
             <Avatar
               key={post.id}
               alt={post.title}
-              src={post.coverUrl}
+              src={`data:image/jpeg;base64,${post.coverUrl}`}
               variant="rounded"
               sx={{
                 width: 48,
