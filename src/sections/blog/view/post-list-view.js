@@ -197,14 +197,6 @@ export default function PostListView() {
           mb: { xs: 3, md: 5 },
         }}
       >
-        <PostSearch
-          query={debouncedQuery}
-          results={searchResults}
-          onSearch={handleSearch}
-          loading={searchLoading}
-          hrefItem={(title) => paths.dashboard.post.details(title)}
-        />
-
         
       </Stack>
 
