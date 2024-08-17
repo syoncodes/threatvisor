@@ -148,6 +148,7 @@ export function useNavData() {
             path: '#disabled',
             icon: ICONS.disabled,
             disabled: true,
+            info: <Label color="info">Coming Soon</Label>,
           },
           
           
