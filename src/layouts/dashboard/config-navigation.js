@@ -144,7 +144,7 @@ export function useNavData() {
             icon: ICONS.blog,
           },
           {
-            title: t('OSINT'),
+            title: t('Cloud SIEM'),
             path: '#disabled',
             icon: ICONS.disabled,
             disabled: true,
