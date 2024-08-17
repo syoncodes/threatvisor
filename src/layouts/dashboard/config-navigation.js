@@ -13,7 +13,6 @@ import BugReportIcon from '@mui/icons-material/BugReport';
 import SecurityIcon from '@mui/icons-material/Security';
 import AndroidIcon from '@mui/icons-material/Android';
 import PersonIcon from '@mui/icons-material/Person';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 
 // ----------------------------------------------------------------------
 
@@ -90,7 +89,6 @@ const ICONS = {
       sx={{ width: 1, height: 1 }}
     />
   ),
-  bell: <NotificationsIcon sx={{ width: 1, height: 1 }} />,
 };
 
 // ----------------------------------------------------------------------
@@ -150,13 +148,10 @@ export function useNavData() {
             path: '#disabled',
             icon: ICONS.disabled,
             disabled: true,
-            info: (
-              <>
-                <Label color="info">Coming Soon</Label>
-                <NotificationsIcon sx={{ width: 1, height: 1, ml: 1 }} />
-              </>
-            ),
+            info: <Label color="info">Coming Soon</Label>,
           },
+          
+          
         ],
       },
 
