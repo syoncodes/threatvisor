@@ -622,7 +622,7 @@ setVulnerabilityLogData(formattedData);
         console.log('Request body:', requestBody);
   
         const response = await axios.post(endpoint, requestBody);
-        console.log('Server Response:', response.data);
+        console.log('Server Response for Widgets :', response.data);
 
         const latestLog = response.data.weeklyLog[response.data.weeklyLog.length - 1];
 
