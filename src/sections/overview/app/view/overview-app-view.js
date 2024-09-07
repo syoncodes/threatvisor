@@ -625,6 +625,7 @@ setVulnerabilityLogData(formattedData);
         console.log('Server Response for Widgets :', response.data);
 
         const latestLog = response.data.weeklyLog[response.data.weeklyLog.length - 1];
+        console.log('Total Endpoints:', widgetSummaryData.totalEndpoints);
 
         setWidgetSummaryData({
             totalOpenPorts: response.data.ports.open || 0,
@@ -636,6 +637,7 @@ setVulnerabilityLogData(formattedData);
                 filtered: latestLog.percentage_change.filtered !== "N/A" ? parseFloat(latestLog.percentage_change.filtered) : null,
                 total_endpoints: latestLog.percentage_change.total_endpoints !== "N/A" ? parseFloat(latestLog.percentage_change.total_endpoints) : null
             }
+            console.log('Total Endpoints:', widgetSummaryData.totalEndpoints);
         });
 
 
@@ -775,6 +777,7 @@ useEffect(() => {
         <AppWidgetSummary
             title="Total Endpoints"
             percent={widgetSummaryData.percentChanges.total_endpoints}
+            console.log('Total Endpoints:', widgetSummaryData.totalEndpoints);
             total={widgetSummaryData.totalEndpoints}
             chart={{
                 series: widgetSummaryData.weeklyLog.map(log => log.data.total_endpoints),
