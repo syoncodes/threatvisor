@@ -339,7 +339,7 @@ useEffect(() => {
       categories: MONTHS,
       series: [
         {
-          year: '2023', // Adjust as needed
+          year: '2024', // Adjust as needed
           data: [
             { name: 'High', data: highData },
             { name: 'Medium', data: mediumData },
