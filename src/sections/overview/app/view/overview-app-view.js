@@ -629,7 +629,7 @@ setVulnerabilityLogData(formattedData);
         setWidgetSummaryData({
             totalOpenPorts: response.data.ports.open || 0,
             totalFilteredPorts: response.data.ports.filtered || 0,
-            totalEndpoints: response.data.ports.total_endpoints || 0,
+            totalEndpoints: response.data.ports.total_endpoints,
             weeklyLog: response.data.weeklyLog,
             percentChanges: {
                 total: latestLog.percentage_change.total !== "N/A" ? parseFloat(latestLog.percentage_change.total) : null,
