@@ -610,47 +610,52 @@ setVulnerabilityLogData(formattedData);
 
 
 
-  useEffect(() => {
-    const fetchAppWidgetSummary = async () => {
-      try {
-        const endpoint = 'https://threatvisor-api.vercel.app/api/endpoints/getPorts';
-        const requestBody = {
-          email: user?.email,
-        };
-  
-        console.log('Sending request to:', endpoint);
-        console.log('Request body:', requestBody);
-  
-        const response = await axios.post(endpoint, requestBody);
-        console.log('Server Response for Widgets :', response.data);
+useEffect(() => {
+  const fetchAppWidgetSummary = async () => {
+    try {
+      const endpoint = 'https://threatvisor-api.vercel.app/api/endpoints/getPorts';
+      const requestBody = {
+        email: user?.email,
+      };
 
-        const latestLog = response.data.weeklyLog[response.data.weeklyLog.length - 1];
-        console.log('Total Endpoints:', widgetSummaryData.totalEndpoints);
+      console.log('Sending request to:', endpoint);
+      console.log('Request body:', requestBody);
 
-        setWidgetSummaryData({
-            totalOpenPorts: response.data.ports.open || 0,
-            totalFilteredPorts: response.data.ports.filtered || 0,
-            totalEndpoints: response.data.ports.total_endpoints,
-            weeklyLog: response.data.weeklyLog,
-            percentChanges: {
-                total: latestLog.percentage_change.total !== "N/A" ? parseFloat(latestLog.percentage_change.total) : null,
-                filtered: latestLog.percentage_change.filtered !== "N/A" ? parseFloat(latestLog.percentage_change.filtered) : null,
-                total_endpoints: latestLog.percentage_change.total_endpoints !== "N/A" ? parseFloat(latestLog.percentage_change.total_endpoints) : null
-            }
-        });
+      const response = await axios.post(endpoint, requestBody);
+      console.log('Server Response for Widgets:', response.data);
 
+      const latestLog = response.data.weeklyLog[response.data.weeklyLog.length - 1] || {};
 
-        console.log('Total Endpoints:', widgetSummaryData.totalEndpoints);
+      // Log right before setting the state to check the response
+      console.log('Response Data - Total Endpoints:', response.data.ports.total_endpoints);
 
-      } catch (error) {
-        console.error('Error fetching app widget summary data:', error);
-      }
-    };
-  
-    if (user?.email) {
-      fetchAppWidgetSummary();
+      setWidgetSummaryData({
+        totalOpenPorts: response.data.ports.open || 0,
+        totalFilteredPorts: response.data.ports.filtered || 0,
+        totalEndpoints: response.data.ports.total_endpoints,
+        weeklyLog: response.data.weeklyLog,
+        percentChanges: {
+          total: latestLog?.percentage_change?.total !== "N/A" ? parseFloat(latestLog?.percentage_change?.total) : null,
+          filtered: latestLog?.percentage_change?.filtered !== "N/A" ? parseFloat(latestLog?.percentage_change?.filtered) : null,
+          total_endpoints: latestLog?.percentage_change?.total_endpoints !== "N/A" ? parseFloat(latestLog?.percentage_change?.total_endpoints) : null,
+        },
+      });
+
+    } catch (error) {
+      console.error('Error fetching app widget summary data:', error);
     }
-  }, [user?.email]);
+  };
+
+  if (user?.email) {
+    fetchAppWidgetSummary();
+  }
+}, [user?.email]);
+
+// Adding a useEffect to monitor widgetSummaryData updates
+useEffect(() => {
+  console.log('Updated widgetSummaryData:', widgetSummaryData);
+}, [widgetSummaryData]);
+
   
   const MIN_ROWS = 6;
 
