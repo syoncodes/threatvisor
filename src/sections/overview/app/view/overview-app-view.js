@@ -709,6 +709,11 @@ useEffect(() => {
     return <div>Loading...</div>; // Show a loading indicator or a spinner
   }
 
+useEffect(() => {
+  console.log('Updated widgetSummaryData:', widgetSummaryData);
+}, [widgetSummaryData]);
+
+
   return (
     <>
 
