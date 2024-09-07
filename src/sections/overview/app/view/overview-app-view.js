@@ -637,11 +637,11 @@ setVulnerabilityLogData(formattedData);
                 filtered: latestLog.percentage_change.filtered !== "N/A" ? parseFloat(latestLog.percentage_change.filtered) : null,
                 total_endpoints: latestLog.percentage_change.total_endpoints !== "N/A" ? parseFloat(latestLog.percentage_change.total_endpoints) : null
             }
-            console.log('Total Endpoints:', widgetSummaryData.totalEndpoints);
         });
 
 
-        
+        console.log('Total Endpoints:', widgetSummaryData.totalEndpoints);
+
       } catch (error) {
         console.error('Error fetching app widget summary data:', error);
       }
@@ -777,7 +777,6 @@ useEffect(() => {
         <AppWidgetSummary
             title="Total Endpoints"
             percent={widgetSummaryData.percentChanges.total_endpoints}
-            console.log('Total Endpoints:', widgetSummaryData.totalEndpoints);
             total={widgetSummaryData.totalEndpoints}
             chart={{
                 series: widgetSummaryData.weeklyLog.map(log => log.data.total_endpoints),
